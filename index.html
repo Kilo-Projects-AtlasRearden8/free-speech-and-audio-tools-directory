@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Speech &amp; Audio Tools — Asdale Dynamics, LLC</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #1f2937;
+    background: #fafafa;
+    line-height: 1.5;
+  }
+  header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: #111827;
+  }
+  header p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+  }
+  .intro {
+    max-width: 760px;
+    margin: 0 auto 1.5rem auto;
+    padding: 0 1rem;
+    color: #374151;
+    font-size: 0.95rem;
+    border-left: 4px solid #e5e7eb;
+    padding-left: 1rem;
+  }
+  .toolbar {
+    max-width: 800px;
+    margin: 0 auto 1rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  button.pill {
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    color: #374151;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  button.pill:hover { border-color: #9ca3af; }
+  button.pill.active {
+    background: #111827;
+    color: #ffffff;
+    border-color: #111827;
+  }
+  .search-box {
+    position: relative;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 0.6rem 1rem 0.6rem 2.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    outline: none;
+    background: #ffffff;
+  }
+  .search-box input:focus { border-color: #2563eb; }
+  .search-box::before {
+    content: "\1F50D";
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #9ca3af;
+    pointer-events: none;
+  }
+  .grid {
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .card h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #111827;
+  }
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .badge-stt { background: #dbeafe; color: #1e3a8a; }
+  .badge-tts { background: #dcfce7; color: #166534; }
+  .badge-rec { background: #fef3c7; color: #92400e; }
+  .badge-edit { background: #e9d5ff; color: #6b21a8; }
+  .meta { margin: 0; font-size: 0.8rem; color: #6b7280; }
+  .steps {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #374151;
+    white-space: pre-wrap;
+  }
+  .link {
+    margin-top: 0.25rem;
+  }
+  .link a {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background: #111827;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .link a:hover { background: #374151; }
+  #no-results {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.95rem;
+    display: none;
+  }
+  footer {
+    border-top: 1px solid #e5e7eb;
+    background: #ffffff;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  footer a { color: #111827; text-decoration: underline; }
+  .note { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Free Speech &amp; Audio Tools</h1>
+  <p>A freebies directory of no-cost speech-to-text, text-to-speech, recording, and editing tools. Published by <strong>Asdale Dynamics, LLC</strong>.</p>
+</header>
+
+<div class="intro">Every tool here is free to use — no affiliate links, no paywalls, and no account required unless noted. Pick a category or search by name, platform, or steps.</div>
+
+<div class="toolbar">
+  <div class="pills" id="pills">
+    <button class="pill active" data-category="">All</button>
+    <button class="pill" data-category="speech-to-text">Speech-to-text</button>
+    <button class="pill" data-category="text-to-speech">Text-to-speech</button>
+    <button class="pill" data-category="recording">Recording</button>
+    <button class="pill" data-category="editing">Editing</button>
+  </div>
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search tools by name, platform, or steps&hellip;">
+  </div>
+</div>
+
+<div id="no-results">No tools match your search or filter.</div>
+<div class="grid" id="tool-list"></div>
+
+<footer>
+  <p>&copy; 2026 <strong>Asdale Dynamics, LLC</strong>. Plain English, step by step, never condescending.</p>
+  <p class="note">Licensed under the MIT License &middot; No affiliate links &middot; Not medical advice</p>
+</footer>
+
+<script id="tools-data" type="application/json">
+[
+  {
+    "id": "whisper",
+    "name": "Whisper",
+    "category": "speech-to-text",
+    "cost": "Free (open source)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Install ffmpeg and Python. Run `pip install openai-whisper`, then transcribe a file: `whisper interview.mp3 --model base`. The transcript appears as a .txt file next to your audio.",
+    "link": "https://github.com/openai/whisper"
+  },
+  {
+    "id": "whisper-cpp",
+    "name": "Whisper.cpp",
+    "category": "speech-to-text",
+    "cost": "Free (open source)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Download the source from GitHub and run `make` in the folder. Download a model such as `ggml-base.en.bin` into `models/`, then run `./main -m models/ggml-base.en.bin -f recording.wav`.",
+    "link": "https://github.com/ggerganov/whisper.cpp"
+  },
+  {
+    "id": "macos-dictation",
+    "name": "macOS Dictation",
+    "category": "speech-to-text",
+    "cost": "Free (built into macOS)",
+    "platform": "Mac",
+    "steps": "Open System Settings &gt; Keyboard &gt; Dictation and turn it on. Click in any text field, press the dictation shortcut (default: press the Fn key twice), and speak. Your words appear as text.",
+    "link": "https://support.apple.com"
+  },
+  {
+    "id": "windows-voice-access",
+    "name": "Windows Voice Access",
+    "category": "speech-to-text",
+    "cost": "Free (built into Windows)",
+    "platform": "Windows",
+    "steps": "Open Settings &gt; Accessibility &gt; Speech and turn on Voice Access. Follow the setup to choose your microphone, then speak into any text field or say commands like \"open Settings\".",
+    "link": "https://support.microsoft.com"
+  },
+  {
+    "id": "otranscribe",
+    "name": "oTranscribe",
+    "category": "speech-to-text",
+    "cost": "Free (open source)",
+    "platform": "Web (Chrome)",
+    "steps": "Go to otranscribe.com in Chrome, import your audio file, and play it back while you type in the built-in editor. Your work saves in the browser, so you can pause and return later.",
+    "link": "https://otranscribe.com"
+  },
+  {
+    "id": "piper",
+    "name": "Piper TTS",
+    "category": "text-to-speech",
+    "cost": "Free (open source)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Download the Piper release and a voice model (for example `en_US-lessac-medium.onnx`) from GitHub. Run `echo \"Hello, world\" | ./piper --model en_US-lessac-medium.onnx --output_file hello.wav` to create a WAV file.",
+    "link": "https://github.com/rhasspy/piper"
+  },
+  {
+    "id": "espeak-ng",
+    "name": "eSpeak NG",
+    "category": "text-to-speech",
+    "cost": "Free (open source)",
+    "platform": "Windows, Mac, Linux, Android",
+    "steps": "Install eSpeak NG. In Terminal or Command Prompt run `espeak-ng \"Hello, world\" -w hello.wav` to save speech as a WAV file, or open the GUI to speak text aloud.",
+    "link": "https://github.com/espeak-ng/espeak-ng"
+  },
+  {
+    "id": "macos-spoken-content",
+    "name": "macOS Spoken Content (say)",
+    "category": "text-to-speech",
+    "cost": "Free (built into macOS)",
+    "platform": "Mac",
+    "steps": "Open System Settings &gt; Accessibility &gt; Spoken Content and turn on \"Speak selection\". In Terminal, run `say \"Hello, world\"` to hear the system voice, or highlight text in any app and press the speak shortcut.",
+    "link": "https://support.apple.com"
+  },
+  {
+    "id": "edge-read-aloud",
+    "name": "Microsoft Edge Read Aloud",
+    "category": "text-to-speech",
+    "cost": "Free (with Microsoft Edge)",
+    "platform": "Windows, Mac",
+    "steps": "Open a webpage or PDF in Microsoft Edge, then click the \"Read Aloud\" button in the address bar (or highlight text, right-click, and choose \"Read aloud selection\"). Pick a voice and speed, then press play.",
+    "link": "https://www.microsoft.com/edge"
+  },
+  {
+    "id": "balabolka",
+    "name": "Balabolka",
+    "category": "text-to-speech",
+    "cost": "Free (freeware)",
+    "platform": "Windows",
+    "steps": "Download and install Balabolka for Windows. Paste your text into the window, pick a voice from the dropdown, and use File &gt; Save Audio to export WAV, MP3, or other formats.",
+    "link": "https://balabolka.site"
+  },
+  {
+    "id": "audacity",
+    "name": "Audacity",
+    "category": "recording",
+    "cost": "Free (open source)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Download and install Audacity. Click the red Record button to record from your microphone, press Space to stop, then use File &gt; Export to save as MP3 or WAV.",
+    "link": "https://github.com/audacity/audacity"
+  },
+  {
+    "id": "obs-studio",
+    "name": "OBS Studio",
+    "category": "recording",
+    "cost": "Free (open source)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Download and install OBS Studio. In the Sources panel, add \"Audio Output Capture\" (system sound) or \"Audio Input Capture\" (microphone), then click \"Start Recording\" to save the audio to disk.",
+    "link": "https://github.com/obsproject/obs-studio"
+  },
+  {
+    "id": "quicktime",
+    "name": "QuickTime Player",
+    "category": "recording",
+    "cost": "Free (built into macOS)",
+    "platform": "Mac",
+    "steps": "Open QuickTime Player and choose File &gt; New Audio Recording. Click the record button, speak, then click stop and use File &gt; Save to save the recording.",
+    "link": "https://support.apple.com"
+  },
+  {
+    "id": "windows-voice-recorder",
+    "name": "Windows Voice Recorder",
+    "category": "recording",
+    "cost": "Free (built into Windows)",
+    "platform": "Windows",
+    "steps": "Open Voice Recorder from the Start menu, click the record button, and speak. When finished, click stop and give the file a name to save it to Documents &gt; Sound recordings.",
+    "link": "https://support.microsoft.com"
+  },
+  {
+    "id": "ocenaudio",
+    "name": "Ocenaudio",
+    "category": "editing",
+    "cost": "Free (freeware)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Download and install Ocenaudio. Open an audio file or record new audio, select a section to edit (cut, copy, paste, effects), and use File &gt; Export to save your changes.",
+    "link": "https://www.ocenaudio.com"
+  },
+  {
+    "id": "garageband",
+    "name": "GarageBand",
+    "category": "editing",
+    "cost": "Free (built into macOS / iOS)",
+    "platform": "Mac, iOS",
+    "steps": "Open GarageBand on Mac (free from the App Store) and choose \"Empty Project\" with a microphone or audio input. Record a track, edit regions in the timeline, and use Share &gt; Export Song to Disk to save.",
+    "link": "https://www.apple.com/mac/garageband/"
+  },
+  {
+    "id": "cakewalk",
+    "name": "Cakewalk by BandLab",
+    "category": "editing",
+    "cost": "Free",
+    "platform": "Windows",
+    "steps": "Create a free BandLab account, download Cakewalk, and install it. Create a new project, record audio or import a file, edit with cut/copy/paste and effects, then export as WAV or MP3.",
+    "link": "https://www.bandlab.com/cakewalk"
+  },
+  {
+    "id": "ardour",
+    "name": "Ardour",
+    "category": "editing",
+    "cost": "Free (open source; official builds pay-what-you-want)",
+    "platform": "Windows, Mac, Linux",
+    "steps": "Download Ardour (source is free; official builds are pay-what-you-want, including $0). Start a new session, add audio tracks, record or import audio, edit on the timeline, and export via Session &gt; Export.",
+    "link": "https://ardour.org"
+  }
+]
+</script>
+
+<script>
+(function () {
+  var dataEl = document.getElementById('tools-data');
+  var tools = JSON.parse(dataEl.textContent);
+  var grid = document.getElementById('tool-list');
+  var pills = [].slice.call(document.querySelectorAll('.pill'));
+  var searchInput = document.getElementById('search');
+  var noResults = document.getElementById('no-results');
+
+  var categoryLabels = {
+    'speech-to-text': 'Speech-to-text',
+    'text-to-speech': 'Text-to-speech',
+    recording: 'Recording',
+    editing: 'Editing'
+  };
+
+  var state = { category: '', query: '' };
+
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function matches(tool) {
+    if (state.category && tool.category !== state.category) return false;
+    var q = state.query.toLowerCase();
+    if (q) {
+      var haystack = (tool.name + ' ' + categoryLabels[tool.category] + ' ' + tool.cost + ' ' + tool.platform + ' ' + tool.steps).toLowerCase();
+      if (haystack.indexOf(q) === -1) return false;
+    }
+    return true;
+  }
+
+  function render() {
+    var filtered = tools.filter(matches);
+    grid.innerHTML = '';
+    if (filtered.length === 0) {
+      noResults.style.display = 'block';
+      return;
+    }
+    noResults.style.display = 'none';
+    filtered.forEach(function (tool) {
+      var card = document.createElement('article');
+      card.className = 'card';
+      var badgeClass = 'badge badge-' + tool.category;
+      var stepsHtml = escapeHtml(tool.steps)
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/&gt;/g, '&gt;');
+      card.innerHTML =
+        '<div class="card-head">' +
+        '<h2>' + escapeHtml(tool.name) + '</h2>' +
+        '<span class="badge ' + badgeClass + '">' + escapeHtml(categoryLabels[tool.category]) + '</span>' +
+        '</div>' +
+        '<p class="meta"><strong>Cost:</strong> ' + escapeHtml(tool.cost) + ' &middot; <strong>Platform:</strong> ' + escapeHtml(tool.platform) + '</p>' +
+        '<p class="steps">' + stepsHtml + '</p>' +
+        '<div class="link"><a href="' + escapeHtml(tool.link) + '" target="_blank" rel="noopener noreferrer">Official site &rarr;</a></div>';
+      grid.appendChild(card);
+    });
+  }
+
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      pills.forEach(function (p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+      state.category = pill.getAttribute('data-category');
+      render();
+    });
+  });
+
+  searchInput.addEventListener('input', function () {
+    state.query = this.value.trim();
+    render();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
