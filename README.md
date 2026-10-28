@@ -1,28 +1,38 @@
-# Free Speech &amp; Audio Tools
+# Free Speech & Audio Tools
 
-A freebies directory of no-cost speech-to-text, text-to-speech, recording, and editing tools. Each listing shows cost, platform, beginner-friendly steps, and an official link.
+A friendly, no-cost directory of speech-to-text, text-to-speech, recording, and editing tools. Each listing shows cost, platform, beginner-friendly steps, and an official link — no affiliate links, no paywalls.
 
 Published by **Asdale Dynamics, LLC**.
 
 ## What's inside
 
-- **Speech-to-text:** Whisper, Whisper.cpp, macOS Dictation, Windows Voice Access, oTranscribe
-- **Text-to-speech:** Piper TTS, eSpeak NG, macOS Spoken Content (say), Microsoft Edge Read Aloud, Balabolka
-- **Recording:** Audacity, OBS Studio, QuickTime Player, Windows Voice Recorder
-- **Editing:** Ocenaudio, GarageBand, Cakewalk by BandLab, Ardour
+| Category | Tools |
+|----------|-------|
+| Speech-to-text | Whisper, Whisper.cpp, macOS Dictation, Windows Voice Access, oTranscribe |
+| Text-to-speech | Piper TTS, eSpeak NG, macOS Spoken Content (say), Microsoft Edge Read Aloud, Balabolka |
+| Recording | Audacity, OBS Studio, QuickTime Player, Windows Voice Recorder |
+| Editing | Ocenaudio, GarageBand, Cakewalk by BandLab, Ardour |
+
+18 tools in total. Full details (cost, platform, steps, official link) live in `TOOLS.md` and in `index.html`.
 
 ## How to use
 
-Open `index.html` in any web browser. No build step, no internet connection required after the page loads — the tool list is embedded in the page and search runs entirely in your browser.
+Open `index.html` in any web browser. The tool list is embedded in the page, and search plus category filters run entirely in your browser — no build step, no internet needed after the page loads.
 
-You can also serve it locally:
+Or serve it locally:
 
 ```bash
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-## Style
+Run the verification script:
+
+```bash
+node verify.js
+```
+
+## Style & promises
 
 Plain English, step by step, never condescending. Local-first. No affiliate links. No secrets, API keys, or personal data.
 

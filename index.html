@@ -416,8 +416,7 @@
       card.className = 'card';
       var badgeClass = 'badge badge-' + tool.category;
       var stepsHtml = escapeHtml(tool.steps)
-        .replace(/`([^`]+)`/g, '<code>$1</code>')
-        .replace(/&gt;/g, '&gt;');
+        .replace(/`([^`]+)`/g, '<code>$1</code>');
       card.innerHTML =
         '<div class="card-head">' +
         '<h2>' + escapeHtml(tool.name) + '</h2>' +
